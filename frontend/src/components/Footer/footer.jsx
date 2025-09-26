@@ -32,7 +32,7 @@ const footer = () => {
             <ul>
                 <li>+923281109353</li>
                 <li>momanamjad07@gmail.com</li>
-                <li>contsct me</li>
+                <li>contact me</li>
             </ul>
         </div>
 
