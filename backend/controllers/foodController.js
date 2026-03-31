@@ -38,6 +38,19 @@ try {
     res.status(500).json({ success: false, message: "Error fetching food items" });
 }
 }
+//remove food item
+const removeFood = async(req,res)=>{
+    try {
+   const food =await foodmodel.findById(req.body.id);
+   
+     fs.unlink(`uploads/${food.image}`,()=>{})
+   await foodmodel.findByIdAndDelete(req.body.id);
+   res.json({success:true,message:"Food item removed successfully"})
+
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error removing food item" });
+    }
+} 
 
 
-export {addFood,listFood}
+export {addFood,listFood,removeFood}
