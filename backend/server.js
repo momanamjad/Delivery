@@ -4,7 +4,7 @@ import connectDB from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
 import userRouter from "./routes/userRoute.js";
 import dotenv from "dotenv";
-
+import cartRouter from "./routes/cartRoute.js";
 dotenv.config();
 
 
