@@ -30,7 +30,6 @@ const getTotalcartamount=()=>{
   for(const items in cartItems){
     if(cartItems[items]>0){
 
-    
     let itemInfo=food_list.find((product)=>product._id===items)
     total_amount +=itemInfo.price* cartItems[items]
     }
