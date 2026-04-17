@@ -65,7 +65,7 @@ const Login_popup = ({setshowlogin}) => {
         {currentstate==='login'?   <p>Create a new account? <span onClick={()=>setcurrentstate("sign up")}>Click here</span></p>
        : <p>Already have an account? <span onClick={()=>setcurrentstate("login")}>Login here</span></p>
                }
-        <p>Admin Login? <span onClick={() => window.location.href = import.meta.env.VITE_ADMIN_URL || "http://localhost:5173"}>Click here</span></p>
+        <p>Admin Login? <span onClick={() => window.location.href = import.meta.env.VITE_ADMIN_URL || "http://localhost:5174"}>Click here</span></p>
         </form>
     </div>
   );
