@@ -1,5 +1,5 @@
 import React from "react";
-import "./sidebar.css";
+import "./Sidebar.css";
 // import { assets } from "../../assets/assets";
 import order_icon from "../../assets/order_icon.png";
 import add_icon from "../../assets/add_icon.png";
