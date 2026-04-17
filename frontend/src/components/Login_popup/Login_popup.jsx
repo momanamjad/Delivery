@@ -26,14 +26,16 @@ const Login_popup = ({setshowlogin}) => {
   }
   try {
      const response=await axios.post(newUrl,data)
-     if(response.status===200){
+     if(response.status===200 && response.data.success){
        
         setToken(response.data.token);
         localStorage.setItem("token",response.data.token);
         setshowlogin(false);
 
-
-
+        if (data.email.toLowerCase() === "admin@delivery.com" || response.data.message.includes("Admin Login")) {
+           const adminUrl = import.meta.env.VITE_ADMIN_URL || "http://localhost:5173";
+           window.location.href = adminUrl;
+        }
      }  
   } catch (error) {
     alert(error.response.data.message)
