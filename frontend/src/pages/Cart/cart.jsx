@@ -25,7 +25,7 @@ const cart = () => {
                 <div>
                   <div className="cart-items-title cart-items-item">
                     {/* <p>{item.name}</p> */}
-                    <img src={item.image.startsWith("http") ? item.image : url+"/images/"+item.image} alt="" />
+                    <img src={item.image.startsWith("http") ? item.image : url+"/images/"+item.image} onError={(e)=>{e.target.src="https://placehold.co/400x300/ff6347/white?text=Food+Image"}} alt="" />
                     <p>{item.name}</p>
                     <p>${item.price}</p>
                     <p>{cartItems[item._id]}</p>

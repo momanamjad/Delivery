@@ -10,7 +10,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img src={image.startsWith("http") ? image : url+"/images/"+image} className="food-item-image" alt="" />
+        <img src={image.startsWith("http") ? image : url+"/images/"+image} onError={(e)=>{e.target.src="https://placehold.co/400x300/ff6347/white?text=Food+Image"}} className="food-item-image" alt="" />
         {!cartItems[id] ? 
           <img
             className="add"

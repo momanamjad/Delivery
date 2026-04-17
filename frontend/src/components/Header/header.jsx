@@ -12,9 +12,7 @@ const header = () => {
           with finest in gredients and culinary enterprise our mission is to
           satisfy your cravings.
         </p>
-        <Link to='/Menu'> <button>View Menu</button> </Link>
-        {/* <button>View Menu</button> */}
-        {/* <Link ><button>View Menu</button></Link> */}
+        <a href='#explore-menu'><button>View Menu</button></a>
       </div>
     </div>
   );
