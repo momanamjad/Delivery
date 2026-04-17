@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Placing user order from frontend
 const placeOrder = async (req, res) => {
-    const frontend_url = "http://localhost:5173";
+    const frontend_url = "http://localhost:5174";
 
     try {
         // Validate userId
@@ -67,5 +67,55 @@ const placeOrder = async (req, res) => {
         res.status(500).json({ success: false, message: "Error placing order" });
     }
 }
+//the snipet below is used to verify the order, this is not the right way to to this the only good method is to use WebHooks for these 
 
-export { placeOrder };
+const verifyOrder=async(req,res)=>{
+ const {orderId,success}=req.body;
+ try {
+    if(success=="true"){
+        await orderModel.findByIdAndUpdate(orderId,{payment:true})
+       res.json({success:true,message:"Paid"})
+    }
+    else{
+        await orderModel.findByIdAndDelete(orderId);
+        res.json({success:false,message:"Not Paid"})
+    }
+ } catch (error) {
+    console.log(error)
+    res.json({success:false,message:"error"})
+ }
+
+}
+///Users order for frontend
+const userOrders=async(req,res)=>{
+try {
+    const orders=await orderModel.find({userId:req.body.userid})
+    res.json({success:true,data:orders})
+} catch (error) {
+    console.log(error);
+    res.json({success:false,message:"error"})
+}
+}
+//listing orders for admin pannel
+const listOrders=async(req,res)=>{
+try {
+    const orders=await orderModel.find({});
+    res.json({success:true,data:orders})
+} catch (error) {
+    console.log(error)
+    res.json({success:false,message:"eror"})
+}
+}
+//text api  for updating order status
+const updateStatus=async(req,res)=>{
+try {
+    await orderModel.findByIdAndUpdate(req.body.orderId,{status:req.body.status})
+    res.json({success:true,message:"status updated"})
+} catch (error) {
+    console.log(error)
+    res.json({success:false,message:"error"})
+
+}
+}
+
+export { placeOrder ,verifyOrder,userOrders,listOrders,updateStatus};
