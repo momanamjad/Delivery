@@ -33,8 +33,9 @@ A comprehensive full-stack delivery platform built using the MERN stack. This ap
 *   **Axios**: Manages administrative API requests securely.
 
 ### Third-Party Services & Utilities
+*   **Cloudinary**: Permanent cloud media hosting for user-uploaded product images.
 *   **Stripe**: Payment gateway integration to handle credit card transactions safely.
-*   **Multer**: Node.js middleware for handling `multipart/form-data` during file/image uploads.
+*   **Multer**: Node.js middleware for parsing `multipart/form-data` uploads.
 *   **Dotenv**: Loads environment variables from a `.env` file securely.
 *   **CORS**: Handles Cross-Origin Resource Sharing to allow the frontend and admin panel to communicate with the backend.
 
@@ -44,7 +45,11 @@ A comprehensive full-stack delivery platform built using the MERN stack. This ap
 *   `/admin` - Contains the source code for the restricted administrative portal.
 *   `/backend` - Contains the Express server, database models, middleware, and API routes.
 
-## 🚦 Getting Started
+## 🚦 Cloud Deployment & Hosting
+This project is configured natively to run beautifully in the cloud:
+*   **Vercel (Frontend & Admin Panel)**: Auto-deployed efficiently directly from GitHub using native Vite build presets.
+*   **Vercel / Render (Backend API)**: Can be securely hosted as a Web Service.
+*   **MongoDB Atlas (Database)**: Remote cluster integration.
 
 To get the application up and running locally on your machine, you must initialize and run the Backend, Frontend, and Admin servers. (' - ')
 
