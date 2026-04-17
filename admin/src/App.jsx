@@ -8,7 +8,7 @@ import Orders from "./pages/orders/Orders";
 
 function App() {
 
-const url="http://localhost:4000";
+  const url = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 
   return <>

@@ -1,4 +1,4 @@
-import foodmodel from "../models/foodmodels.js";
+import foodmodel from "../models/foodModels.js";
 import fs from "fs";
 import path from "path";    
 
