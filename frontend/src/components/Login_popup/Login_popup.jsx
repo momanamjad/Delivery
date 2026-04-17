@@ -63,6 +63,9 @@ const Login_popup = ({setshowlogin}) => {
         {currentstate==='login'?   <p>Create a new account? <span onClick={()=>setcurrentstate("sign up")}>Click here</span></p>
        : <p>Already have an account? <span onClick={()=>setcurrentstate("login")}>Login here</span></p>
                }
+        <p style={{ marginTop: '10px', fontSize: '13px', color: '#666', background: '#f0f0f0', padding: '10px', borderRadius: '5px' }}>
+          <strong>Note:</strong> To test admin functionality, use <b>admin@delivery.com</b> / <b>admin123</b>
+        </p>
        
         </form>
     </div>

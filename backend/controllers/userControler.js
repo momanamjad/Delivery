@@ -13,16 +13,26 @@ const createToken=(id)=>{
 const loginUser=async(req,res)=>{
     const{email,password}=req.body;
     try {
-        const user=await userModel.findOne({email});
-        if(!user){
-            return res.status(400).json({message:"User does not exist"})
+        const adminEmail = process.env.ADMIN_EMAIL || "admin@delivery.com";
+        const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+
+        const user = await userModel.findOne({ email });
+
+        if (!user) {
+            // Check if they are trying to log in as admin from the frontend
+            if (email === adminEmail && password === adminPassword) {
+                const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET || "randomsecret", { expiresIn: "1d" });
+                return res.status(200).json({ success: true, message: "Admin Login successful", token });
+            }
+            return res.status(400).json({ success: false, message: "User does not exist" });
         }
-        const isPasswordValid=await bcrypt.compare(password,user.password);
-        if(!isPasswordValid){
-            return res.status(400).json({message:"Invalid credentials"})
+        
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ success: false, message: "Invalid credentials" });
         }
-        const token=createToken(user._id);
-        res.status(200).json({message:"Login successful",token})
+        const token = createToken(user._id);
+        res.status(200).json({ success: true, message: "Login successful", token });
     } catch (error) {
         console.log(error);
         res.status(500).json({message:"Error occurred while logging in"})
@@ -61,6 +71,8 @@ try {
 }
 
 
+
+}
 
 //admin login
 const loginAdmin = async (req, res) => {
