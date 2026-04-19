@@ -11,7 +11,7 @@ A comprehensive full-stack delivery platform built using the MERN stack. This ap
 *   **Media Uploads**: Built-in support for uploading and storing product images using Multer.
 *   **High Performance**: Blazing fast frontend built with React and Vite for optimal user experience.
 
-##  Technologies Used
+##  Tech Used
 
 ### Frontend (Client-Side)
 *   **React.js (v19)**: The core library for building the user interface.
