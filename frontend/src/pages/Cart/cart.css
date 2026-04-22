@@ -49,11 +49,18 @@
     border: none;
     color: white;
     background-color: tomato;
-    width: max(15vw, 0px);
+    width: max(15vw, 200px);
     padding: 12px 0px;
     cursor: pointer;
     border-radius: 4px;
 }
+
+@media (max-width: 750px) {
+    .cart-total button {
+        width: 100%;
+    }
+}
+
 .cart-promocode{
     flex: 1;
 }

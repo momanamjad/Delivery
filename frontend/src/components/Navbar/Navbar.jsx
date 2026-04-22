@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./navbar.css";
-import {Link, useNavigate } from 'react-router-dom'
+import {Link, useNavigate, useLocation } from 'react-router-dom'
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/Storecontext";
 import profile_icon from "../../assets/profile_icon.png"
@@ -13,6 +13,7 @@ const Navbar = ({setshowlogin}) => {
     const [showSearch, setShowSearch] = useState(false);
     const {getTotalcartamount,token,setToken, searchQuery, setSearchQuery}=useContext(StoreContext);
     const navigate=useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
       const sections = ["header", "explore-menu", "app-download", "footer"];
@@ -49,6 +50,26 @@ const Navbar = ({setshowlogin}) => {
       setToken("");
       navigate("/");
     }
+
+    const handleSearchClick = () => {
+      setShowSearch(!showSearch);
+      
+      const scrollTarget = () => {
+        const foodDisplay = document.getElementById('food-display');
+        if (foodDisplay) {
+          foodDisplay.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
+      if (location.pathname !== '/') {
+        navigate('/');
+        // Wait for navigation and rendering
+        setTimeout(scrollTarget, 100);
+      } else {
+        scrollTarget();
+      }
+    };
+
   return (
     <>
       <div className="navbar">
@@ -62,13 +83,7 @@ const Navbar = ({setshowlogin}) => {
         <div className="navbar_right">
           <div className="navbar-search" style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
             {showSearch && <input className="navbar-search-input" type="text" placeholder="Search dishes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{padding: '5px 10px', borderRadius: '20px', border: '1px solid tomato', outline: 'none'}} />}
-            <img onClick={() => {
-                setShowSearch(!showSearch);
-                const foodDisplay = document.getElementById('food-display');
-                if (foodDisplay) {
-                    foodDisplay.scrollIntoView({ behavior: 'smooth' });
-                }
-            }} src={assets.search_icon} alt="" style={{cursor: 'pointer'}} />
+            <img onClick={handleSearchClick} src={assets.search_icon} alt="" style={{cursor: 'pointer'}} />
           </div>
           <div className="navbar_search_icon">
           <Link to='/cart'> <img src={assets.basket_icon} alt="" /></Link>   
