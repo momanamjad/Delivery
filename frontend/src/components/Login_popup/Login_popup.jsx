@@ -33,7 +33,7 @@ const Login_popup = ({setshowlogin}) => {
         setshowlogin(false);
 
         if (data.email.toLowerCase() === "admin@delivery.com" || response.data.message.includes("Admin Login")) {
-           const adminUrl = import.meta.env.VITE_ADMIN_URL || "http://localhost:5173";
+           const adminUrl = import.meta.env.VITE_ADMIN_URL || "https://delivery-admin-ten.vercel.app/";
            window.location.href = adminUrl;
         }
      }  
@@ -65,7 +65,7 @@ const Login_popup = ({setshowlogin}) => {
         {currentstate==='login'?   <p>Create a new account? <span onClick={()=>setcurrentstate("sign up")}>Click here</span></p>
        : <p>Already have an account? <span onClick={()=>setcurrentstate("login")}>Login here</span></p>
                }
-        {currentstate==='login' && <p>Are you an admin? <span onClick={() => window.location.href = import.meta.env.VITE_ADMIN_URL || "http://localhost:5173"}>Admin Login</span></p>}
+        {currentstate==='login' && <p>Are you an admin? <span onClick={() => window.location.href = import.meta.env.VITE_ADMIN_URL || "https://delivery-admin-ten.vercel.app/"}>Admin Login</span></p>}
         </form>
     </div>
   );
