@@ -40,9 +40,9 @@ if(response.data.success){
     price: "",
   });
   setImage(false);  
-  toast.success("Product added successfully");
+  toast.success(response.data.message || "Product added successfully");
 }else{
-  toast.error("Failed to add product");
+  toast.error(response.data.message || "Failed to add product");
 }
 }
   return (

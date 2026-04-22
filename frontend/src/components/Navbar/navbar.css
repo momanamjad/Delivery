@@ -59,6 +59,9 @@
   right: -8px;
 }
 @media (max-width: 1050px) {
+  .navbar {
+    width: 90%;
+  }
   .navbar.logo {
     width: 140px;
   }
@@ -96,6 +99,9 @@
   }
 }
 @media (max-width: 750px) {
+  .navbar {
+    width: 95%;
+  }
   .navbar_menu {
     display: none;
   }

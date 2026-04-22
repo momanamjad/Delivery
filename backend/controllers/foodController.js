@@ -12,6 +12,11 @@ const addFood=async(req,res)=>{
             return res.status(400).json({ success: false, message: "Image not uploaded" });
         }
 
+        const existingFood = await foodmodel.findOne({ name: req.body.name });
+        if (existingFood) {
+            return res.json({ success: false, message: "Food item with this name already exists" });
+        }
+
         let image_filename= req.file.path; // Cloudinary returns the full URL in path
         if(!req.file.path.startsWith("http")) { // Fallback if using local disk storage
             image_filename = req.file.filename;
