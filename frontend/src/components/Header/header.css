@@ -32,7 +32,7 @@
     font-weight: 500;
     padding: 1vw 2.3vw;
     background-color: white;
-    font-size: (1vw,13px);
+    font-size: max(1vw, 13px);
     border-radius: 15px;
     cursor: pointer;
     /* animation: smooth; */
