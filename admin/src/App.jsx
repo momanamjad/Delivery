@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import Add from "./pages/add/Add";
@@ -36,6 +36,7 @@ function App() {
       <div className="app-content">
         <Sidebar />
         <Routes>
+          <Route path="/" element={<Navigate to="/add" replace />} />
           <Route path="/add" element={<Add url={url} />} />
           <Route path="/list" element={<List url={url} />} />
           <Route path="/orders" element={<Orders url={url} />} />
