@@ -1,10 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./cart.css";
 import { StoreContext } from "../../context/Storecontext";
 import { useNavigate } from "react-router-dom";
 const cart = () => {
-  const { cartItems, food_list, removeFromCart,getTotalcartamount,url } = useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart,getTotalcartamount,url,token } = useContext(StoreContext);
   const navigate=useNavigate();
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleCheckout = () => {
+    if (!token) {
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } else {
+      if(getTotalcartamount() === 0){
+          alert("Your cart is empty!");
+      } else {
+          navigate('/order');
+      }
+    }
+  };
   return (
     <>
       <div className="cart">
@@ -62,7 +76,7 @@ const cart = () => {
                 <b>${getTotalcartamount()===0?0:getTotalcartamount()+2}</b>
               </div>
             </div>
-            <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+            <button onClick={handleCheckout}>PROCEED TO CHECKOUT</button>
           </div>
           <div className="cart-promocode">
             <div>
@@ -75,6 +89,11 @@ const cart = () => {
           </div>
         </div>
       </div>
+      {showNotification && (
+        <div style={{ position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'tomato', color: 'white', padding: '15px 30px', borderRadius: '8px', zIndex: 1000, boxShadow: '0 4px 12px rgba(0,0,0,0.15)', fontWeight: 'bold', animation: 'fadeIn 0.5s' }}>
+          Please login first to proceed to checkout!
+        </div>
+      )}
     </>
   );
 };

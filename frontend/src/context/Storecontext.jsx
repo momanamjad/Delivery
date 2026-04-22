@@ -5,6 +5,7 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const url = (import.meta.env.VITE_API_URL || "http://localhost:4000").replace(/\/$/, "");
   const addToCart = async (itemId) => {
@@ -69,7 +70,9 @@ const StoreContextProvider = (props) => {
     getTotalcartamount,
     url,
     token,
-    setToken
+    setToken,
+    searchQuery,
+    setSearchQuery
   };
   return (
     <StoreContext.Provider value={contextValue}>

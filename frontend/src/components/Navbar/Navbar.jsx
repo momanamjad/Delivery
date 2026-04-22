@@ -11,7 +11,8 @@ import logout_icon from "../../assets/logout_icon.png"
 const navbar = ({setshowlogin}) => {
      
     const [menu ,setmenu]=useState("menu");
-    const {getTotalcartamount,token,setToken}=useContext(StoreContext);
+    const [showSearch, setShowSearch] = useState(false);
+    const {getTotalcartamount,token,setToken, searchQuery, setSearchQuery}=useContext(StoreContext);
     const navigate=useNavigate();
     const Logout=()=>{
       localStorage.removeItem("token");
@@ -30,7 +31,10 @@ const navbar = ({setshowlogin}) => {
           <a href="#footer" onClick={()=>setmenu("Contact")} className={menu==="Contact"?"active":""}>Contact Us</a>
         </ul>
         <div className="navbar_right">
-          <img src={assets.search_icon} alt="" />
+          <div className="navbar-search" style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+            {showSearch && <input type="text" placeholder="Search dishes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{padding: '5px 10px', borderRadius: '20px', border: '1px solid tomato', outline: 'none', width: '150px'}} />}
+            <img onClick={() => setShowSearch(!showSearch)} src={assets.search_icon} alt="" style={{cursor: 'pointer'}} />
+          </div>
           <div className="navbar_search_icon">
          <Link to='/cart'> <img src={assets.basket_icon} alt="" /></Link>   
             <div className={getTotalcartamount()===0?"":"dot"}></div>

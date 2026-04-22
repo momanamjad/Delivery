@@ -5,6 +5,7 @@ import { StoreContext } from "../../context/Storecontext";
 import axios from "axios";  
 const Login_popup = ({setshowlogin}) => {
   const [currentstate, setcurrentstate] = useState("login");
+  const [showPassword, setShowPassword] = useState(false);
   const {url,setToken}=useContext(StoreContext);
   const[data,setData]=useState({
     name:"",
@@ -54,7 +55,12 @@ const Login_popup = ({setshowlogin}) => {
           {currentstate==="login"?<></>:     <input name='name' onChange={onChangeHandler} value={data.name} type="text" placeholder="Your name"required />}
           {/* <input type="text" placeholder="Your name"required /> */}
           <input name='email' onChange={onChangeHandler} value={data.email} type="email" placeholder="Your email"required />
-          <input name='password' onChange={onChangeHandler} value={data.password} type="password" placeholder="Apply password" required/>
+          <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
+            <input name='password' onChange={onChangeHandler} value={data.password} type={showPassword ? "text" : "password"} placeholder="Apply password" required style={{ width: '100%', paddingRight: '40px', outline: 'none', border: '1px solid #c9c9c9', padding: '10px', borderRadius: '4px' }}/>
+            <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', cursor: 'pointer', userSelect: 'none' }}>
+              {showPassword ? "👁️" : "👁️‍🗨️"}
+            </span>
+          </div>
 
         </div>
         <button type='submit'>{currentstate==="sign up"?"create account":"login"}</button>
