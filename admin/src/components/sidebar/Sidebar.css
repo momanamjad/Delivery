@@ -27,28 +27,29 @@ gap:20px;
     border-color: tomato;
 }
 
-@media (max-width:900px) {
+@media (max-width: 768px) {
     .sidebar {
-        width: 15%;
+        width: 100%;
+        min-height: auto;
+        border: 1px solid #a9a9a9;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
     }
     .sidebar-options {
-        padding-left: 15%;
-    }
-    .sidebar-option p{
-        display:none;
-    }
-}
-
-@media (max-width: 600px) {
-    .sidebar {
-        width: 20%;
-    }
-    .sidebar-options {
-        padding-left: 10%;
-        padding-top: 30px;
+        padding: 10px;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 10px;
     }
     .sidebar-option {
-        padding: 10px;
+        border-radius: 3px;
+        border-right: 1px solid #a9a9a9;
+        flex: 1;
         justify-content: center;
+        padding: 8px;
+    }
+    .sidebar-option p {
+        display: none;
     }
 }

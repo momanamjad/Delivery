@@ -8,8 +8,9 @@
   font-family: outfit;
   scroll-behavior:smooth;
 }
-body{
+html, body{
   min-height: 100vh;
+  overflow-x: hidden;
 }
 a{
   text-decoration: none;

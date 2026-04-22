@@ -97,6 +97,24 @@
     display: none;
   }
 }
+.navbar-search-input {
+  width: 150px;
+}
+@media (max-width: 500px) {
+  .navbar_right {
+    gap: 12px;
+  }
+  .navbar .logo {
+    width: 100px;
+  }
+  .navbar button {
+    padding: 6px 15px;
+    font-size: 14px;
+  }
+  .navbar-search-input {
+    width: 100px;
+  }
+}
 .navbar-profile {
   position: relative;
 }

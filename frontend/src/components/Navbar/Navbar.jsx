@@ -61,7 +61,7 @@ const Navbar = ({setshowlogin}) => {
         </ul>
         <div className="navbar_right">
           <div className="navbar-search" style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-            {showSearch && <input type="text" placeholder="Search dishes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{padding: '5px 10px', borderRadius: '20px', border: '1px solid tomato', outline: 'none', width: '150px'}} />}
+            {showSearch && <input className="navbar-search-input" type="text" placeholder="Search dishes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{padding: '5px 10px', borderRadius: '20px', border: '1px solid tomato', outline: 'none'}} />}
             <img onClick={() => {
                 setShowSearch(!showSearch);
                 const foodDisplay = document.getElementById('food-display');

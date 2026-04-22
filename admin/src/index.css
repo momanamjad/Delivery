@@ -33,3 +33,9 @@ hr{
 .cursor{
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .app-content {
+    flex-direction: column;
+  }
+}
