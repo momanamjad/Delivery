@@ -42,3 +42,22 @@ max-width: 120px;
   border-radius: 3px;
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .add {
+        width: 90%;
+        margin-left: 10px;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+    .add-product-name, .add-product-description {
+        width: 100%;
+    }
+    .add-category-price {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .add-category-price select, .add-category-price input {
+        max-width: 100%;
+    }
+}

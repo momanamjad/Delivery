@@ -28,7 +28,27 @@ gap:20px;
 }
 
 @media (max-width:900px) {
+    .sidebar {
+        width: 15%;
+    }
+    .sidebar-options {
+        padding-left: 15%;
+    }
     .sidebar-option p{
         display:none;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        width: 20%;
+    }
+    .sidebar-options {
+        padding-left: 10%;
+        padding-top: 30px;
+    }
+    .sidebar-option {
+        padding: 10px;
+        justify-content: center;
     }
 }

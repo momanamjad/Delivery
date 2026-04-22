@@ -33,7 +33,13 @@ const navbar = ({setshowlogin}) => {
         <div className="navbar_right">
           <div className="navbar-search" style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
             {showSearch && <input type="text" placeholder="Search dishes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{padding: '5px 10px', borderRadius: '20px', border: '1px solid tomato', outline: 'none', width: '150px'}} />}
-            <img onClick={() => setShowSearch(!showSearch)} src={assets.search_icon} alt="" style={{cursor: 'pointer'}} />
+            <img onClick={() => {
+                setShowSearch(!showSearch);
+                const foodDisplay = document.getElementById('food-display');
+                if (foodDisplay) {
+                    foodDisplay.scrollIntoView({ behavior: 'smooth' });
+                }
+            }} src={assets.search_icon} alt="" style={{cursor: 'pointer'}} />
           </div>
           <div className="navbar_search_icon">
          <Link to='/cart'> <img src={assets.basket_icon} alt="" /></Link>   
