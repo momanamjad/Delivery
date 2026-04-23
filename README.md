@@ -3,7 +3,6 @@
 A comprehensive full-stack delivery platform built using the MERN stack. This application is divided into three main components: a customer-facing frontend, a robust backend API server, and a specialized admin dashboard for managing orders and inventory.
 
 ##  Key Features
-
 *   **Secure Authentication**: User login and registration powered by JSON Web Tokens (JWT) and encrypted passwords (Bcrypt).
 *   **Product & Menu Management**: Browse, search, and view available items for delivery.
 *   **Cart & Checkout System**: State-of-the-art shopping cart with secure online payment processing via Stripe integration.
@@ -12,7 +11,6 @@ A comprehensive full-stack delivery platform built using the MERN stack. This ap
 *   **High Performance**: Blazing fast frontend built with React and Vite for optimal user experience.
 
 ##  Tech Used
-
 ### Frontend (Client-Side)
 *   **React.js (v19)**: The core library for building the user interface.
 *   **Vite**: A modern, extremely fast build tool and development server.
