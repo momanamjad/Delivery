@@ -23,7 +23,7 @@ A comprehensive full-stack delivery platform built using the MERN stack. This ap
 *   **MongoDB**: A NoSQL, document-oriented database for storing user, product, and order data.
 *   **Mongoose**: Object Data Modeling (ODM) library for MongoDB and Node.js.
 *   **JSON Web Token (JWT)**: Used to securely transmit information between parties as a JSON object, ideal for authentication.
-*   **Bcrypt**: A password-hashing function used to secure user credentials.
+*   **Bcrypt**: A password-hashing function used to secure user credentials safely.
 
 ### Admin Interface
 *   **React.js & Vite**: Fast development ecosystem tailored for building the dashboard.
