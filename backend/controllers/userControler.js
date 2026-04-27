@@ -13,15 +13,15 @@ const createToken=(id)=>{
 const loginUser=async(req,res)=>{
     const{email,password}=req.body;
     try {
-        const adminEmail = process.env.ADMIN_EMAIL || "admin@delivery.com";
-        const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
 
         const user = await userModel.findOne({ email });
 
         if (!user) {
             // Check if they are trying to log in as admin from the frontend
             if (email === adminEmail && password === adminPassword) {
-                const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET || "randomsecret", { expiresIn: "1d" });
+                const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "1d" });
                 return res.status(200).json({ success: true, message: "Admin Login successful", token });
             }
             return res.status(400).json({ success: false, message: "User does not exist" });
@@ -78,11 +78,11 @@ try {
 const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const adminEmail = process.env.ADMIN_EMAIL || "admin@delivery.com";
-        const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
         
         if (email === adminEmail && password === adminPassword) {
-            const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET || "randomsecret", { expiresIn: "1d" });
+            const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "1d" });
             res.status(200).json({ success: true, message: "Admin login successful", token });
         } else {
             res.status(400).json({ success: false, message: "Invalid admin credentials" });
