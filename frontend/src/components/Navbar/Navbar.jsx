@@ -16,6 +16,11 @@ const Navbar = ({setshowlogin}) => {
     const location = useLocation();
 
     useEffect(() => {
+      if (location.pathname !== '/') {
+        setmenu("");
+        return;
+      }
+
       const sections = ["header", "explore-menu", "app-download", "footer"];
       const observerOptions = {
         root: null,
@@ -43,7 +48,29 @@ const Navbar = ({setshowlogin}) => {
       });
 
       return () => observer.disconnect();
-    }, []);
+    }, [location.pathname]);
+
+    const handleNavClick = (sectionId, menuName) => {
+      setmenu(menuName);
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          } else if (sectionId === "header") {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else if (sectionId === "header") {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    };
 
     const Logout=()=>{
       localStorage.removeItem("token");
@@ -73,12 +100,12 @@ const Navbar = ({setshowlogin}) => {
   return (
     <>
       <div className="navbar">
-        <Link to='/'>   <img className="logo" src={assets.logo} alt="" /></Link>
+        <Link to='/' onClick={() => handleNavClick("header", "Home")}>   <img className="logo" src={assets.logo} alt="" /></Link>
         <ul className="navbar_menu">
-          <Link  to='/' onClick={()=>setmenu("Home")} className={menu==="Home"?"active":""}>Home</Link>
-          <a href="#explore-menu" onClick={()=>setmenu("Menu")} className={menu==="Menu"?"active":""}>Menu</a>
-          <a href="#app-download" onClick={()=>setmenu("mobile-app")} className={menu=== "mobile-app"?"active":""}>Mobile App</a>
-          <a href="#footer" onClick={()=>setmenu("Contact")} className={menu==="Contact"?"active":""}>Contact Us</a>
+          <li onClick={() => handleNavClick("header", "Home")} className={menu==="Home"?"active":""}>Home</li>
+          <li onClick={() => handleNavClick("explore-menu", "Menu")} className={menu==="Menu"?"active":""}>Menu</li>
+          <li onClick={() => handleNavClick("app-download", "mobile-app")} className={menu=== "mobile-app"?"active":""}>Mobile App</li>
+          <li onClick={() => handleNavClick("footer", "Contact")} className={menu==="Contact"?"active":""}>Contact Us</li>
         </ul>
         <div className="navbar_right">
           <div className="navbar-search" style={{display: 'flex', alignItems: 'center', gap: '10px'}}>

@@ -11,8 +11,7 @@ import MyOrders from "./pages/My_Orders/MyOrders.jsx";
 const App = () => {
   const[showlogin,setshowlogin]=useState(false)
   return (
-    
-      <>
+    <div className="app-container">
       {showlogin?< Login_popup setshowlogin={setshowlogin}/>:<></> }
       <div className="app">
         <Navbar setshowlogin={setshowlogin} />
@@ -27,9 +26,7 @@ const App = () => {
         </Routes>
       </div>
       <Footer/>
-
-      
-    </>
+    </div>
   );
 };
 

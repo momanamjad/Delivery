@@ -3,11 +3,11 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #fcfcfc;
+  background-color: var(--bg-color);
 }
 
 .admin-login-container {
-  background-color: white;
+  background-color: var(--card-bg);
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -20,7 +20,7 @@
 
 .admin-login-container h1 {
   text-align: center;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
@@ -32,10 +32,12 @@
 
 .admin-login-inputs input {
   padding: 12px;
-  border: 1px solid #c9c9c9;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   outline: none;
   font-size: 16px;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 .admin-login-container button {
@@ -59,15 +61,20 @@
 .admin-login-note {
   margin-top: 15px;
   font-size: 14px;
-  color: #666;
+  color: var(--secondary-text);
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: var(--sidebar-bg);
   padding: 10px;
   border-radius: 6px;
 }
 .admin-login-note code {
-  background-color: #ebebeb;
+  background-color: rgba(0,0,0,0.1);
   padding: 2px 6px;
   border-radius: 4px;
   color: #ff6347;
+}
+@media (prefers-color-scheme: dark) {
+    .admin-login-note code {
+        background-color: rgba(255,255,255,0.1);
+    }
 }

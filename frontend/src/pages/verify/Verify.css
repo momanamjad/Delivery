@@ -9,7 +9,7 @@
   width: 100px;
   height: 100px;
   place-self: center;
-  border: 5px solid #bdbdbd;
+  border: 5px solid var(--input-border);
   border-top-color:tomato;
   border-radius: 50%;
   animation: rotate 1s infinite;

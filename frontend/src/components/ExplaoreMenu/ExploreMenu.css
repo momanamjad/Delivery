@@ -4,12 +4,12 @@
     flex-direction: column;
 }
 .explore-menu h1{
-    color: #262626;
+    color: var(--heading-color);
     font-weight: 500;
 }
 .explore-menu-text{
     max-width: 60%;
-    color: rgb(28, 24, 24);
+    color: var(--text-color);
 }
 .explore-menu-list{
     display: flex;
@@ -32,13 +32,13 @@
 }
 .explore-menu-list-item p{
     margin-top: 10px;
-    color: #747474;
+    color: var(--secondary-text);
     font-size: max(1.4vw,16px);
 }
 .explore-menu hr{
     margin: 10px 0px;
     height: 2px;
-    background-color: #e2e2e2;
+    background-color: var(--input-border);
     border: none;
 }
 .explore-menu-list-item .active{

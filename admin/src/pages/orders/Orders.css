@@ -7,7 +7,7 @@ border:1px solid tomato;
 padding: 20px ;
 margin:30px 0px;
 font-size: 14px;
-color: #505050;
+color: var(--text-color);
 
 }
 .order-item-food,.order-item-name{
@@ -22,11 +22,17 @@ color: #505050;
     margin-bottom: 10px;
 }
 .order-item select{
-    background: #ffe8e4;
+    background-color: transparent;
+    color: var(--text-color);
     border: 1px solid tomato;
     width:max(10vw,1px);
     outline: none;
     padding: 10px;
+}
+@media (prefers-color-scheme: dark) {
+    .order-item select {
+        background-color: #2c1a16;
+    }
 }
 @media (max-width:1000px) {
     .order-item{

@@ -56,7 +56,7 @@ const Login_popup = ({ setshowlogin }) => {
           {/* <input type="text" placeholder="Your name"required /> */}
           <input name='email' onChange={onChangeHandler} value={data.email} type="email" placeholder="Your email" required />
           <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
-            <input name='password' onChange={onChangeHandler} value={data.password} type={showPassword ? "text" : "password"} placeholder="Apply password" required style={{ width: '100%', paddingRight: '40px', outline: 'none', border: '1px solid #c9c9c9', padding: '10px', borderRadius: '4px' }} />
+            <input name='password' onChange={onChangeHandler} value={data.password} type={showPassword ? "text" : "password"} placeholder="Apply password" required style={{ width: '100%', paddingRight: '40px', outline: 'none', border: '1px solid var(--input-border)', padding: '10px', borderRadius: '4px', backgroundColor: 'transparent', color: 'var(--text-color)' }} />
             <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '15px', cursor: 'pointer', userSelect: 'none' }}>
               {showPassword ? "👁️‍🗨️" : "👁️‍🗨️"}
             </span>

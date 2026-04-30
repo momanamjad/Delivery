@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+:root {
+  --bg-color: #fcfcfc;
+  --text-color: #333;
+  --secondary-text: #6d6d6d;
+  --border-color: #a9a9a9;
+  --sidebar-bg: white;
+  --sidebar-active-bg: #fff0ed;
+  --card-bg: white;
+  --navbar-bg: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --secondary-text: #b0b0b0;
+    --border-color: #333;
+    --sidebar-bg: #1e1e1e;
+    --sidebar-active-bg: #2c1a16;
+    --card-bg: #1e1e1e;
+    --navbar-bg: #1e1e1e;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,8 +32,8 @@
 }
 body{
   height: 100vh;
-  background-color: #fcfcfc;
-
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 a{
@@ -19,7 +43,7 @@ a{
 hr{
   border:none;
   height: 1px;
-  background-color: #a9a9a9;
+  background-color: var(--border-color);
 }
 .app-content{
   display:flex;

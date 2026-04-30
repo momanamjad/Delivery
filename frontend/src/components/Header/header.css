@@ -28,10 +28,10 @@
 }
 .headerContents button{
     border: none;
-    color: #747474;
+    color: var(--secondary-text);
     font-weight: 500;
     padding: 1vw 2.3vw;
-    background-color: white;
+    background-color: var(--bg-color);
     font-size: max(1vw, 13px);
     border-radius: 15px;
     cursor: pointer;

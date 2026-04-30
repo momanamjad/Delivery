@@ -1,9 +1,10 @@
 .sidebar{
     width:18%;
     min-height: 100vh;
-    border: 1.5px solid #a9a9a9;
+    border: 1.5px solid var(--border-color);
     border-top: 0;
     font-size: max(1vw,10px);
+    background-color: var(--sidebar-bg);
 }
 .sidebar-options{
 padding-top: 50px;
@@ -16,14 +17,14 @@ gap:20px;
     display:flex;
     align-items:center;
     gap:12px;
-    border:1px solid #a9a9a9;
+    border:1px solid var(--border-color);
     border-right: 0;
     padding: 8px 10px;
     border-radius: 3px 0px 0px 3px;
     cursor:pointer;
 }
 .sidebar-option.active{
-    background-color: #fff0ed;
+    background-color: var(--sidebar-active-bg);
     border-color: tomato;
 }
 
@@ -31,7 +32,7 @@ gap:20px;
     .sidebar {
         width: 100%;
         min-height: auto;
-        border: 1px solid #a9a9a9;
+        border: 1px solid var(--border-color);
         border-top: 0;
         border-left: 0;
         border-right: 0;
@@ -44,7 +45,7 @@ gap:20px;
     }
     .sidebar-option {
         border-radius: 3px;
-        border-right: 1px solid #a9a9a9;
+        border-right: 1px solid var(--border-color);
         flex: 1;
         justify-content: center;
         padding: 8px;

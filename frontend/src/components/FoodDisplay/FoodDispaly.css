@@ -5,6 +5,6 @@
 .food-display h2 {
     font-size: max(2vw, 24px);
     font-weight: 600;
-    color: #262626;
+    color: var(--heading-color);
     margin-bottom: 20px;
 }

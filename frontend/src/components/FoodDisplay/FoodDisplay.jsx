@@ -28,7 +28,7 @@ const FoodDisplay = ({ category }) => {
           ))}
         </div>
       ) : (
-        <div className="food-display-empty" style={{ textAlign: 'center', padding: '50px 0', color: '#808080' }}>
+        <div className="food-display-empty" style={{ textAlign: 'center', padding: '50px 0', color: 'var(--secondary-text)' }}>
           <h3 style={{ fontSize: '24px' }}>Oops! Not available yet.</h3>
           <p>We couldn't find any dishes matching your criteria.</p>
         </div>

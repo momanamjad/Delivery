@@ -2,7 +2,7 @@
   width: 70%;
   margin-left: max(5vw, 25px);
   margin-top: 50px;
-  color: #6d6d6d;
+  color: var(--secondary-text);
   font-size: 16px;
 }
 .add form {
@@ -19,8 +19,10 @@
 .add-product-description textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #a9a9a9;
+  border: 1px solid var(--border-color);
   border-radius: 3px;
+  background-color: transparent;
+  color: var(--text-color);
 }
 .add-category-price {
   display: flex;
@@ -29,15 +31,17 @@
 .add-category-price select, .add-category-price input {
   padding: 10px;
   max-width: 120px;
-  border: 1px solid #a9a9a9;
+  border: 1px solid var(--border-color);
   border-radius: 3px;
+  background-color: transparent;
+  color: var(--text-color);
 }
 .add button {
-max-width: 120px;
-    padding: 10px;
+  max-width: 120px;
+  padding: 10px;
   border: none;
-  background-color: black;
-  color: white;
+  background-color: var(--text-color);
+  color: var(--bg-color);
   font-size: 16px;
   border-radius: 3px;
   cursor: pointer;

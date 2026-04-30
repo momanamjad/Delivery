@@ -15,8 +15,9 @@ margin-top: 30px;
     gap:30px;
     font-size: 14px;
     padding: 10px 20px;
-    color:#454545;
+    color: var(--text-color);
     border: 1px solid tomato;
+    background-color: var(--item-bg);
 }
 .my-orders-order img{
     width:50px;
@@ -26,7 +27,7 @@ margin-top: 30px;
 }
 .my-orders p b{
     font-weight: 500;
-    color: #454545;
+    color: var(--heading-color);
 }
 .my-orders-order button{
     border: none;
@@ -35,6 +36,12 @@ margin-top: 30px;
     background-color: #ffe1e1;
     cursor: pointer;
     color: #454545;
+}
+@media (prefers-color-scheme: dark) {
+    .my-orders-order button {
+        background-color: #3a2a2a;
+        color: #d1d1d1;
+    }
 }
 
 @media (max-width) {

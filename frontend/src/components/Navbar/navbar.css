@@ -1,15 +1,18 @@
 .navbar {
-  padding: 20px 0;
+  padding: 25px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
   z-index: 100;
-  background-color: white;
+  background-color: var(--nav-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 .navbar.logo {
   width: 150px;
@@ -18,7 +21,7 @@
   display: flex;
   list-style: none;
   gap: 20px;
-  color: #49557e;
+  color: var(--text-color);
   font-size: 18px;
 }
 .navbar_right {
@@ -28,7 +31,7 @@
 }
 .navbar button {
   font-size: 16px;
-  color: #49557e;
+  color: var(--text-color);
   border: 1px solid tomato;
   background: transparent;
   padding: 10px 30px;
@@ -39,9 +42,14 @@
 .navbar button:hover {
   background-color: #fff4f2;
 }
+@media (prefers-color-scheme: dark) {
+  .navbar button:hover {
+    background-color: #2c1a16;
+  }
+}
 .navbar .active {
   padding-bottom: 2px;
-  border-bottom: 2px solid #49557e;
+  border-bottom: 2px solid var(--text-color);
 }
 .navbar li {
   cursor: pointer;
@@ -60,7 +68,8 @@
 }
 @media (max-width: 1050px) {
   .navbar {
-    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
   .navbar.logo {
     width: 140px;
@@ -100,7 +109,8 @@
 }
 @media (max-width: 750px) {
   .navbar {
-    width: 95%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
   }
   .navbar_menu {
     display: none;
@@ -140,11 +150,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #fff2ef;
+  background-color: var(--nav-bg);
   padding: 12px 25px;
   border-radius: 4px;
-  outline: 2px solid white;
+  outline: 2px solid var(--bg-color);
 list-style: none;
+box-shadow: var(--item-shadow);
 }
 .nav-profile-dropdown li{
   display: flex;

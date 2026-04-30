@@ -1,6 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 
+:root {
+  --bg-color: white;
+  --text-color: #49557e;
+  --heading-color: #262626;
+  --secondary-text: #676767;
+  --nav-bg: white;
+  --item-bg: white;
+  --item-shadow: 0px 0px 15px #00000010;
+  --item-shadow-hover: 0px 5px 20px #00000020;
+  --footer-bg: #323232;
+  --footer-text: #d9d9d9;
+  --popup-bg: white;
+  --input-border: #c9c9c9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-color: #d1d1d1;
+    --heading-color: #ffffff;
+    --secondary-text: #a0a0a0;
+    --nav-bg: #121212;
+    --item-bg: #1e1e1e;
+    --item-shadow: 0px 0px 15px rgba(255, 255, 255, 0.05);
+    --item-shadow-hover: 0px 5px 20px rgba(255, 255, 255, 0.1);
+    --footer-bg: #000000;
+    --footer-text: #b0b0b0;
+    --popup-bg: #1e1e1e;
+    --input-border: #444;
+  }
+}
+
 *{
   box-sizing: border-box;
   margin:0%;
@@ -11,6 +43,16 @@
 html, body{
   min-height: 100vh;
   overflow-x: hidden;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.app {
+  flex: 1;
 }
 a{
   text-decoration: none;
@@ -20,7 +62,7 @@ a{
 .app{
   width: 80%;
   margin: auto;
-  padding-top: 80px;
+  padding-top: 100px;
 }
 
 @media (max-width: 1050px) {
