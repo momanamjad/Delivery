@@ -3,6 +3,8 @@ import "./Login-popup.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/Storecontext";
 import axios from "axios";
+import { GoogleLogin } from "@react-oauth/google";
+
 const Login_popup = ({ setshowlogin }) => {
   const [currentstate, setcurrentstate] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +14,23 @@ const Login_popup = ({ setshowlogin }) => {
     email: "",
     password: ""
   })
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await axios.post(`${url}/api/user/google-login`, {
+        idToken: credentialResponse.credential
+      });
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setshowlogin(false);
+      }
+    } catch (error) {
+      console.error("Google Login Error:", error);
+      alert(error.response?.data?.message || "Google Login failed");
+    }
+  };
+
   const onChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -64,6 +83,20 @@ const Login_popup = ({ setshowlogin }) => {
 
         </div>
         <button type='submit'>{currentstate === "sign up" ? "create account" : "login"}</button>
+        
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => {
+              console.log('Login Failed');
+              alert("Google Login Failed");
+            }}
+            useOneTap
+            theme="filled_blue"
+            shape="pill"
+          />
+        </div>
+
         <div className="login-popup-condition">
           <input type="checkbox" required />
           <p>By continuing , i agree to the terms of use & policy</p>
