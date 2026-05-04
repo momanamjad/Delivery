@@ -8,6 +8,7 @@ const StoreContextProvider = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const url = (import.meta.env.VITE_API_URL || "http://localhost:4000").replace(/\/$/, "");
+  console.log("Current Backend URL:", url);
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
 
