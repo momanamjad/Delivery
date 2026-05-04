@@ -8,6 +8,10 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
+if (!clientId) {
+  console.warn("VITE_GOOGLE_CLIENT_ID is not defined. Google Login will not work.");
+}
+
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <GoogleOAuthProvider clientId={clientId}>
