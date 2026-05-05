@@ -32,11 +32,6 @@ app.use((err, req, res, next) => {
 
 import mongoose from "mongoose";
 
-// Detailed DB connection logging
-mongoose.connection.on('error', err => {
-  console.error("Mongoose Connection Error Detail:", err);
-});
-
 //db connection
 connectDB();
 
