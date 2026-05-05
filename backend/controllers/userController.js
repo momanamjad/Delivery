@@ -133,8 +133,8 @@ const googleLogin = async (req, res) => {
         const token = createToken(user._id);
         res.status(200).json({ success: true, message: "Google Login successful", token });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "Error occurred during Google Login" });
+        console.error("Google Login Backend Error:", error);
+        res.status(500).json({ success: false, message: error.message || "Error occurred during Google Login" });
     }
 }
 
