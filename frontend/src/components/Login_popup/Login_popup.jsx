@@ -38,6 +38,7 @@ const Login_popup = ({ setshowlogin }) => {
   }
   const onLogin = async (e) => {
     e.preventDefault();
+    console.log("Attempting login to:", url);
     let newUrl = url;
     if (currentstate === "login") {
       newUrl += "/api/user/login"
@@ -85,13 +86,13 @@ const Login_popup = ({ setshowlogin }) => {
         <button type='submit'>{currentstate === "sign up" ? "create account" : "login"}</button>
         
         <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
+          {console.log("Current Google Client ID:", import.meta.env.VITE_GOOGLE_CLIENT_ID)}
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={() => {
               console.log('Login Failed');
               alert("Google Login Failed");
             }}
-            useOneTap
             theme="filled_blue"
             shape="pill"
           />
