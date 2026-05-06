@@ -27,7 +27,8 @@ const Login_popup = ({ setshowlogin }) => {
       }
     } catch (error) {
       console.error("Google Login Error:", error);
-      alert(error.response?.data?.message || error.message || "Google Login failed");
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || "Google Login failed";
+      alert(`Google Login failed: ${errorMessage}\nAPI URL: ${url}`);
     }
   };
 
