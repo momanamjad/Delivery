@@ -30,8 +30,15 @@ app.use((err, req, res, next) => {
 
 import mongoose from "mongoose";
 
-//db connection
-connectDB();
+//db connection middleware
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
 
 
 
