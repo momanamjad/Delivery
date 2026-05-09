@@ -15,6 +15,12 @@ const addToCart = async (req, res) => {
     }
 
     let cartData = userData.cartData || {};
+    const MAX_QUANTITY = 20;
+    
+    if (cartData[itemId] >= MAX_QUANTITY) {
+      return res.status(400).json({ success: false, message: `Maximum quantity of ${MAX_QUANTITY} reached for this item.` });
+    }
+
     cartData[itemId] = (cartData[itemId] || 0) + 1;
     
     await userModel.findByIdAndUpdate(userid, { cartData });

@@ -15,6 +15,11 @@ const placeOrder = async (req, res) => {
         if (!req.body.userId) {
             return res.status(400).json({ error: "userId is required in the request body." });
         }
+        const MIN_ORDER_AMOUNT = 10;
+        if (req.body.amount < MIN_ORDER_AMOUNT) {
+            return res.status(400).json({ success: false, message: `Minimum order amount is $${MIN_ORDER_AMOUNT}.` });
+        }
+
         // 1. Save the order in your database first
         const newOrder = new orderModel({
             userId: req.body.userId,
@@ -97,14 +102,29 @@ try {
 }
 }
 //listing orders for admin pannel
-const listOrders=async(req,res)=>{
-try {
-    const orders=await orderModel.find({});
-    res.json({success:true,data:orders})
-} catch (error) {
-    console.log(error)
-    res.json({success:false,message:"eror"})
-}
+const listOrders = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const totalItems = await orderModel.countDocuments({});
+        const orders = await orderModel.find({}).sort({ date: -1 }).skip(skip).limit(limit);
+
+        res.json({
+            success: true,
+            data: orders,
+            pagination: {
+                totalItems,
+                totalPages: Math.ceil(totalItems / limit),
+                currentPage: page,
+                limit
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: "Error fetching orders" })
+    }
 }
 //text api  for updating order status
 const updateStatus=async(req,res)=>{

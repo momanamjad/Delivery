@@ -1,11 +1,29 @@
 import 'dotenv/config'
 import express from "express";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
 import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+
+// Rate Limiters
+const globalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: { success: false, message: "Too many requests from this IP, please try again after 15 minutes." },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10, // Limit each IP to 10 login/register requests per windowMs
+    message: { success: false, message: "Too many authentication attempts, please try again after 15 minutes." },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 
 //app config
@@ -43,9 +61,10 @@ app.use(async (req, res, next) => {
 
 
 //api endpoints
+app.use("/api", globalLimiter); // Apply global limit to all API routes
 app.use("/api/food", foodRouter)
 app.use("/images",express.static(process.env.VERCEL ? "/tmp" : "uploads"))
-app.use("/api/user",userRouter)
+app.use("/api/user", authLimiter, userRouter) // Apply stricter limit to auth
 app.use("/api/cart",cartRouter)
 app.use("/api/order",orderRouter)
 

@@ -4,9 +4,12 @@ A comprehensive full-stack delivery platform built using the MERN stack. This ap
 
 ##  Key Features
 *   **Secure Authentication**: User login and registration powered by JSON Web Tokens (JWT) and encrypted passwords (Bcrypt).
+*   **API Rate Limiting**: Protection against brute-force attacks on auth routes and global API abuse using `express-rate-limit`.
+*   **Pagination System**: Efficient data fetching for products and admin orders to ensure high performance with large datasets.
+*   **Smart Cart Constraints**: Enforced limits on item quantities and a minimum order value ($10) for sustainable business operations.
 *   **Product & Menu Management**: Browse, search, and view available items for delivery.
 *   **Cart & Checkout System**: State-of-the-art shopping cart with secure online payment processing via Stripe integration.
-*   **Admin Dashboard**: A secure control panel for store owners to manage items, categories, and monitor ongoing delivery orders.
+*   **Admin Dashboard**: A secure control panel for store owners to manage items, categories, and monitor ongoing delivery orders with paginated views.
 *   **Media Uploads**: Built-in support for uploading and storing product images using Multer.
 *   **High Performance**: Blazing fast frontend built with React and Vite for optimal user experience.
 
@@ -71,3 +74,18 @@ To get the application up and running locally on your machine, you must initiali
 1.  Navigate into the admin directory: `cd admin`
 2.  Install dependencies: `npm install`
 3.  Start the admin development server: `npm run dev`
+
+## 🧪 Testing the Limiting Features
+
+You can test the newly implemented limits using the provided test script or manual tools like Postman:
+
+### 1. Automated Test Script
+A pre-configured test script is available in the backend directory.
+1. Ensure the server is running: `npm run server`
+2. In a new terminal, run: `node test_limiting.js` (inside `backend` folder)
+
+### 2. Manual Testing
+*   **Auth Rate Limit**: Attempt to log in more than 10 times within 15 minutes. You will receive a `429 Too Many Requests` error.
+*   **Pagination**: Use a browser or Postman to visit `http://localhost:4000/api/food/list?page=1&limit=2`. You will see only 2 items and a `pagination` metadata object.
+*   **Cart Quantity Limit**: Try adding the same item to your cart more than 20 times. The API will return an error message: "Maximum quantity of 20 reached...".
+*   **Minimum Order**: Try to place an order with a total amount less than $10. The system will block the transaction with an error message.

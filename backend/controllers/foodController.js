@@ -38,14 +38,29 @@ const addFood=async(req,res)=>{
     }
 }
 //list food
+const listFood = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
 
-const listFood=async(req,res)=>{
-try {
-    const foods=await foodmodel.find({});
-    res.json({success:true,data:foods})
-} catch (error) {
-    res.status(500).json({ success: false, message: "Error fetching food items" });
-}
+        const totalItems = await foodmodel.countDocuments({});
+        const foods = await foodmodel.find({}).skip(skip).limit(limit);
+
+        res.json({
+            success: true,
+            data: foods,
+            pagination: {
+                totalItems,
+                totalPages: Math.ceil(totalItems / limit),
+                currentPage: page,
+                limit
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Error fetching food items" });
+    }
 }
 //remove food item
 const removeFood = async(req,res)=>{
