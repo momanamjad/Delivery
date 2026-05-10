@@ -76,6 +76,11 @@ const StoreContextProvider = (props) => {
         if (storedToken) {
           setToken(storedToken);
           await loadCartData(storedToken);
+        } else {
+          const guestCart = localStorage.getItem("guestCart");
+          if (guestCart) {
+            setCartItems(JSON.parse(guestCart));
+          }
         }
       } catch (error) {
         console.error("Initialization error:", error);
@@ -85,6 +90,14 @@ const StoreContextProvider = (props) => {
 
     return () => axios.interceptors.response.eject(interceptor);
   }, [])
+
+  useEffect(() => {
+    if (!token) {
+      localStorage.setItem("guestCart", JSON.stringify(cartItems));
+    } else {
+      localStorage.removeItem("guestCart");
+    }
+  }, [cartItems, token]);
 
   const contextValue = {
     food_list,

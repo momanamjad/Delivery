@@ -4,7 +4,8 @@ import Sidebar from "./components/sidebar/Sidebar";
 import Add from "./pages/add/Add";
 import List from "./pages/list/List";
 import Orders from "./pages/orders/Orders";
-  import { ToastContainer } from 'react-toastify';
+import Dashboard from "./pages/dashboard/Dashboard";
+import { ToastContainer } from 'react-toastify';
 import { useState, useEffect } from "react";
 import Login from "./pages/login/Login";
 
@@ -36,7 +37,8 @@ function App() {
       <div className="app-content">
         <Sidebar />
         <Routes>
-          <Route path="/" element={<Navigate to="/add" replace />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard url={url} />} />
           <Route path="/add" element={<Add url={url} />} />
           <Route path="/list" element={<List url={url} />} />
           <Route path="/orders" element={<Orders url={url} />} />
