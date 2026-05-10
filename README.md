@@ -12,6 +12,7 @@ A comprehensive full-stack delivery platform built using the MERN stack. This ap
 *   **Admin Dashboard**: A secure control panel for store owners to manage items, categories, and monitor ongoing delivery orders with paginated views.
 *   **Media Uploads**: Built-in support for uploading and storing product images using Multer.
 *   **High Performance**: Blazing fast frontend built with React and Vite for optimal user experience.
+*   **Enhanced Security**: Strict password complexity requirements and input character limits to protect against common vulnerabilities.
 
 ##  Tech Used
 ### Frontend (Client-Side)

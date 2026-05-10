@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
@@ -8,17 +10,23 @@ const StoreContextProvider = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const url = (import.meta.env.VITE_API_URL || "http://localhost:4000").replace(/\/$/, "");
+  
   const addToCart = async (itemId) => {
-    if (!cartItems[itemId]) {
-
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    try {
+      if (!cartItems[itemId]) {
+        setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
+      } else {
+        setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+      }
+      if (token) {
+        await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } });
+      }
+    } catch (error) {
+      const message = error.response?.data?.message || "Error adding item to cart";
+      toast.error(message);
+      // Revert local state if API fails
+      setCartItems((prev) => ({ ...prev, [itemId]: (prev[itemId] || 1) - 1 }));
     }
-    if (token) {
-      await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } });
-    }
-
   };
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }))
@@ -50,15 +58,32 @@ const StoreContextProvider = (props) => {
 
 
   useEffect(() => {
+    // Axios global error interceptor
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 429) {
+          toast.error("Too many requests. Please wait a moment.");
+        }
+        return Promise.reject(error);
+      }
+    );
+
     async function loadData() {
-      await fetchFoodList();
-      const storedToken = localStorage.getItem("token");
-      if (storedToken) {
-        setToken(storedToken);
-        await loadCartData(storedToken);
+      try {
+        await fetchFoodList();
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+          setToken(storedToken);
+          await loadCartData(storedToken);
+        }
+      } catch (error) {
+        console.error("Initialization error:", error);
       }
     }
     loadData();
+
+    return () => axios.interceptors.response.eject(interceptor);
   }, [])
 
   const contextValue = {

@@ -4,6 +4,7 @@ import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/Storecontext";
 import axios from "axios";
 import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
 
 const Login_popup = ({ setshowlogin }) => {
   const [currentstate, setcurrentstate] = useState("login");
@@ -28,7 +29,7 @@ const Login_popup = ({ setshowlogin }) => {
     } catch (error) {
       console.error("Google Login Error:", error);
       const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || "Google Login failed";
-      alert(`Google Login failed: ${errorMessage}\nAPI URL: ${url}`);
+      toast.error(`Google Login failed: ${errorMessage}`);
     }
   };
 
@@ -59,7 +60,7 @@ const Login_popup = ({ setshowlogin }) => {
         }
       }
     } catch (error) {
-      alert(error.response.data.message)
+      toast.error(error.response?.data?.message || "Operation failed")
     }
 
   }

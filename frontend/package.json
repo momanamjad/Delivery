@@ -14,7 +14,8 @@
     "axios": "^1.14.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.1"
+    "react-router-dom": "^7.9.1",
+    "react-toastify": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",

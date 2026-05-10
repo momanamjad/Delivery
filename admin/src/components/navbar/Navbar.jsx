@@ -6,7 +6,7 @@ const Navbar = ({setToken}) => {
   const logout = () => {
     localStorage.removeItem('adminToken');
     setToken("");
-    window.location.replace("https://delivery-omega.vercel.app/");
+    window.location.replace("http://localhost:5173/");
   }
 
   return (

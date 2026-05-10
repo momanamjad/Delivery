@@ -4,18 +4,31 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const List = ({url}) => {
   const [list, setList] = React.useState([]);
-  const fetchList = async () => {
-    const response = await axios.get(`${url}/api/food/list`);
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(1);
+  const [limit] = React.useState(10);
+
+  const fetchList = async (currentPage = page) => {
+    const response = await axios.get(`${url}/api/food/list?page=${currentPage}&limit=${limit}`);
     console.log(response.data);
-    if (response.status === 200) {
+    if (response.data.success) {
       setList(response.data.data);
+      setTotalPages(response.data.pagination.totalPages);
     } else {
       toast.error("Failed to fetch list");
     }
   };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+      fetchList(newPage);
+    }
+  };
+
   const removeFood = async (id) => {
     const response = await axios.post(`${url}/api/food/remove/`, { id:id});  
-    if (response.status === 200) {
+    if (response.data.success) {
       toast.success("Food deleted successfully");
       fetchList(); // Refresh the list
     } else {
@@ -54,6 +67,25 @@ const List = ({url}) => {
             </div>
           ))}
         </div>
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button 
+              disabled={page === 1} 
+              onClick={() => handlePageChange(page - 1)}
+              className={page === 1 ? "disabled" : ""}
+            >
+              Prev
+            </button>
+            <span>Page {page} of {totalPages}</span>
+            <button 
+              disabled={page === totalPages} 
+              onClick={() => handlePageChange(page + 1)}
+              className={page === totalPages ? "disabled" : ""}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

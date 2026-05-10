@@ -7,13 +7,18 @@ import axios from "axios";
 import { assets } from "../../assets/assets";
 const Orders = ({ url }) => {
   const [orders, setOrders] = useState([]);
-  const fetchAllOrders = async () => {
-    const response = await axios.get(url + "/api/order/list");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit] = useState(5); // Show 5 orders per page
+
+  const fetchAllOrders = async (currentPage = page) => {
+    const response = await axios.get(`${url}/api/order/list?page=${currentPage}&limit=${limit}`);
     if (response.data.success) {
       setOrders(response.data.data);
+      setTotalPages(response.data.pagination.totalPages);
       console.log(response.data.data);
     } else {
-      toast.error("Error");
+      toast.error("Error fetching orders");
     }
   };
 
@@ -24,6 +29,13 @@ const Orders = ({ url }) => {
     })
     if (response.data.success) {
       await fetchAllOrders();
+    }
+  }
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+      fetchAllOrders(newPage);
     }
   }
 
@@ -76,6 +88,25 @@ const Orders = ({ url }) => {
           </div>
         ))}
       </div>
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button 
+            disabled={page === 1} 
+            onClick={() => handlePageChange(page - 1)}
+            className={page === 1 ? "disabled" : ""}
+          >
+            Prev
+          </button>
+          <span>Page {page} of {totalPages}</span>
+          <button 
+            disabled={page === totalPages} 
+            onClick={() => handlePageChange(page + 1)}
+            className={page === totalPages ? "disabled" : ""}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

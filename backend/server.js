@@ -19,7 +19,7 @@ const globalLimiter = rateLimit({
 
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 10, // Limit each IP to 10 login/register requests per windowMs
+    max: 50, // Limit each IP to 50 login/register requests per windowMs
     message: { success: false, message: "Too many authentication attempts, please try again after 15 minutes." },
     standardHeaders: true,
     legacyHeaders: false,
@@ -28,7 +28,7 @@ const authLimiter = rateLimit({
 
 //app config
 const app = express();
-const port = 4000
+const port = process.env.PORT || 4000
 
 
 //middleware

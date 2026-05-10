@@ -38,7 +38,7 @@ const loginUser=async(req,res)=>{
         res.status(200).json({ success: true, message: "Login successful", token });
     } catch (error) {
         console.log(error);
-        res.status(500).json({message:"Error occurred while logging in"})
+        res.status(500).json({ success: false, message: "Error occurred while logging in" })
     }
 }
 
@@ -54,9 +54,9 @@ try {
      if(!validator.isEmail(email)){
         return res.json({success:false,message:"Invalid email,please provide a valid email address"})
      }
-     if(password.length<8){
-        return res.json({success:false,message:"Password must be at least 8 characters long"})
-     }
+      if (!validator.isStrongPassword(password, { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 })) {
+        return res.json({ success: false, message: "Password must be at least 8 characters long and include uppercase, lowercase, numbers, and symbols" });
+      }
      //hash password
      const salt=await bcrypt.genSalt(10);
         const hashedPassword=await bcrypt.hash(password,salt);
@@ -67,10 +67,10 @@ try {
         })
      const user=await newUser.save();
      const token=createToken(user._id);
-     res.status(200).json({message:"User registered successfully",token})
+     res.status(200).json({ success: true, message: "User registered successfully", token })
 } catch (error) {
-   console.log(error);
-    res.status(500).json({message:"Error occurred while registering user"})
+    console.log(error);
+    res.status(500).json({ success: false, message: "Error occurred while registering user" })
 }
 
 
@@ -83,15 +83,19 @@ const loginAdmin = async (req, res) => {
         const { email, password } = req.body;
         const adminEmail = process.env.ADMIN_EMAIL;
         const adminPassword = process.env.ADMIN_PASSWORD;
+
+        console.log("Admin Login Attempt:", { email });
         
         if (email === adminEmail && password === adminPassword) {
             const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "1d" });
+            console.log("Admin Login Success");
             res.status(200).json({ success: true, message: "Admin login successful", token });
         } else {
+            console.log("Admin Login Failed: Invalid credentials");
             res.status(400).json({ success: false, message: "Invalid admin credentials" });
         }
     } catch (error) {
-        console.log(error);
+        console.error("Admin Login Error:", error);
         res.status(500).json({ success: false, message: "Error loggin in as admin" });
     }
 }
