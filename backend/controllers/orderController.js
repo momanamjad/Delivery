@@ -129,7 +129,6 @@ const listOrders = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     res.json({ success: false, message: "Error fetching orders" });
   }
 };
@@ -141,9 +140,71 @@ const updateStatus = async (req, res) => {
     });
     res.json({ success: true, message: "status updated" });
   } catch (error) {
-    console.log(error);
     res.json({ success: false, message: "error" });
   }
 };
 
-export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };
+// Get business statistics for admin dashboard
+const getStats = async (req, res) => {
+    try {
+        const totalOrders = await orderModel.countDocuments({});
+        const paidOrders = await orderModel.find({ payment: true });
+        const totalRevenue = paidOrders.reduce((acc, order) => acc + order.amount, 0);
+        
+        const statusCounts = await orderModel.aggregate([
+            { $group: { _id: "$status", count: { $sum: 1 } } }
+        ]);
+
+        // Daily revenue for the last 7 days
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        
+        const dailyRevenue = await orderModel.aggregate([
+            { $match: { payment: true, date: { $gte: sevenDaysAgo } } },
+            { $group: { 
+                _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } }, 
+                revenue: { $sum: "$amount" } 
+            }},
+            { $sort: { _id: 1 } }
+        ]);
+
+        const recentOrders = await orderModel.find({}).sort({ date: -1 }).limit(5);
+
+        // Top Selling Products
+        const topProducts = await orderModel.aggregate([
+            { $unwind: "$items" },
+            { $group: { 
+                _id: "$items.name", 
+                quantity: { $sum: "$items.quantity" },
+                revenue: { $sum: { $multiply: ["$items.price", "$items.quantity"] } }
+            }},
+            { $sort: { quantity: -1 } },
+            { $limit: 5 }
+        ]);
+
+        // Unique Customers
+        const uniqueCustomers = await orderModel.distinct("userid");
+
+        // Total Food Items
+        const totalFoodItems = await mongoose.model('food').countDocuments({});
+
+        res.json({
+            success: true,
+            stats: {
+                totalOrders,
+                totalRevenue,
+                statusCounts: statusCounts.reduce((acc, item) => ({ ...acc, [item._id]: item.count }), {}),
+                dailyRevenue,
+                recentOrders,
+                topProducts,
+                uniqueCustomers: uniqueCustomers.length,
+                totalFoodItems
+            }
+        });
+    } catch (error) {
+        // Removed excessive logging
+        res.status(500).json({ success: false, message: "Error fetching stats" });
+    }
+}
+
+export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus, getStats };

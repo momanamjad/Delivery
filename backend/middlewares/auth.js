@@ -12,8 +12,11 @@ import jwt from "jsonwebtoken"
         req.body.userid = token_decoded.id;
         next();
     } catch (error) {
-        console.log(error);
-        res.status(401).json({success:false,message:"error"})
+        if (error.name === "TokenExpiredError") {
+            return res.status(401).json({ success: false, message: "Session expired, please login again" });
+        }
+        console.error("Auth Error:", error.message);
+        res.status(401).json({ success: false, message: "Invalid token" });
     }
 }
 

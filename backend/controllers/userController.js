@@ -37,7 +37,6 @@ const loginUser=async(req,res)=>{
         const token = createToken(user._id);
         res.status(200).json({ success: true, message: "Login successful", token });
     } catch (error) {
-        console.log(error);
         res.status(500).json({ success: false, message: "Error occurred while logging in" })
     }
 }
@@ -69,7 +68,6 @@ try {
      const token=createToken(user._id);
      res.status(200).json({ success: true, message: "User registered successfully", token })
 } catch (error) {
-    console.log(error);
     res.status(500).json({ success: false, message: "Error occurred while registering user" })
 }
 
@@ -84,18 +82,13 @@ const loginAdmin = async (req, res) => {
         const adminEmail = process.env.ADMIN_EMAIL;
         const adminPassword = process.env.ADMIN_PASSWORD;
 
-        console.log("Admin Login Attempt:", { email });
-        
         if (email === adminEmail && password === adminPassword) {
             const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "1d" });
-            console.log("Admin Login Success");
             res.status(200).json({ success: true, message: "Admin login successful", token });
         } else {
-            console.log("Admin Login Failed: Invalid credentials");
             res.status(400).json({ success: false, message: "Invalid admin credentials" });
         }
     } catch (error) {
-        console.error("Admin Login Error:", error);
         res.status(500).json({ success: false, message: "Error loggin in as admin" });
     }
 }
@@ -137,12 +130,10 @@ const googleLogin = async (req, res) => {
         const token = createToken(user._id);
         res.status(200).json({ success: true, message: "Google Login successful", token });
     } catch (error) {
-        console.error("Google Login Backend Error:", error);
         res.status(500).json({ 
             success: false, 
             message: "Error occurred during Google Login", 
-            error: error.message,
-            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            error: error.message
         });
     }
 }
