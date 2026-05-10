@@ -10,6 +10,7 @@ import {
     Plus, ExternalLink,
     DollarSign, Users, ShoppingBag, Utensils
 } from 'lucide-react';
+import Skeleton from '../../components/skeleton/Skeleton';
 
 const Dashboard = ({ url }) => {
     const navigate = useNavigate();
@@ -51,7 +52,23 @@ const Dashboard = ({ url }) => {
 
     const pieData = Object.entries(stats.statusCounts).map(([name, value]) => ({ name, value }));
 
-    if (loading) return <div className="dash2-loading">Loading Dashboard...</div>;
+    if (loading) return (
+        <div className='dash2-container'>
+            <header className="dash2-header">
+                <div className="header-text">
+                    <Skeleton type="line" />
+                    <Skeleton type="line" />
+                </div>
+            </header>
+            <div style={{ marginBottom: '2rem' }}>
+                <Skeleton type="card" count={4} />
+            </div>
+            <div className="dash2-charts-row">
+                <div className="chart-card-large"><Skeleton type="chart" /></div>
+                <div className="chart-card-small"><Skeleton type="chart" /></div>
+            </div>
+        </div>
+    );
 
     return (
         <div className='dash2-container'>

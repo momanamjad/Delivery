@@ -1,55 +1,197 @@
-.list-table-format{
-  display: grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 15px;
-  border:1px solid var(--border-color);
-  font-size: 13px;
-     }
-.list-table-format.title{
-    background-color: var(--sidebar-bg);
-}
-.list-table-format img{
-    width: 50px;
-}
-@media  (max-width:600px) {
-.list-table-format{
-    grid-template-columns: 1fr 3fr 1fr;
-    gap:15px;
-}
-.list-table-format.title{
-    display: none;}
-}
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin: 40px 0;
+.list-page {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Outfit', sans-serif;
+    background-color: white;
+    min-height: 100vh;
 }
 
-.pagination button {
-    padding: 8px 20px;
-    background-color: tomato;
+/* Header Section */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.header-title {
+    flex: 1;
+    min-width: 300px;
+}
+
+.header-title h1 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.header-title p {
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.header-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-add-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.4rem;
+    background: #ff6347;
     color: white;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.pagination button:hover:not(:disabled) {
-    background-color: #ff4500;
-}
-
-.pagination button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-    color: #888;
-}
-
-.pagination span {
+    border-radius: 10px;
     font-weight: 600;
-    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add-item:hover {
+    background: #e5533d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 99, 71, 0.2);
+}
+
+/* Table Styling */
+.table-container {
+    background: white;
+    border: 1px solid #f1f5f9;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.premium-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.premium-table th {
+    padding: 1.2rem 1.5rem;
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.premium-table td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid #f8fafc;
+    vertical-align: middle;
+}
+
+.premium-table tr:hover td {
+    background: #fdfdfd;
+}
+
+.product-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-img-small {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #f1f5f9;
+}
+
+.product-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.category-badge {
+    padding: 0.4rem 0.8rem;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.price-tag {
+    font-weight: 700;
+    color: #111827;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.delete-action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #fee2e2;
+    background: #fff;
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: auto;
+}
+
+.delete-action-btn:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+
+/* Pagination & Others match Orders.css pattern */
+.list-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.empty-table {
+    padding: 4rem !important;
+    text-align: center;
+    color: #94a3b8;
+}
+
+.reset-link {
+    background: none;
+    border: none;
+    color: #ff6347;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    text-decoration: underline;
+}
+
+.list-loading {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #94a3b8;
+}
+
+@media (max-width: 768px) {
+    .premium-table th:nth-child(2),
+    .premium-table td:nth-child(2) {
+        display: none;
+    }
 }
