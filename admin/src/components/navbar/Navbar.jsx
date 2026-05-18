@@ -6,7 +6,10 @@ const Navbar = ({setToken}) => {
   const logout = () => {
     localStorage.removeItem('adminToken');
     setToken("");
-    window.location.replace("http://localhost:5173/");
+    const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
+    if (frontendUrl) {
+      window.location.replace(frontendUrl);
+    }
   }
 
   return (

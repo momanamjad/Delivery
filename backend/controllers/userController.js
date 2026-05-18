@@ -16,8 +16,8 @@ const createToken=(id)=>{
 const loginUser=async(req,res)=>{
     const{email,password}=req.body;
     try {
-        const adminEmail = process.env.ADMIN_EMAIL;
-        const adminPassword = process.env.ADMIN_PASSWORD;
+        const adminEmail = process.env.ADMIN_EMAIL || "admin@delivery.com";
+        const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
 
         const user = await userModel.findOne({ email });
 
@@ -79,8 +79,8 @@ try {
 const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const adminEmail = process.env.ADMIN_EMAIL;
-        const adminPassword = process.env.ADMIN_PASSWORD;
+        const adminEmail = process.env.ADMIN_EMAIL || "admin@delivery.com";
+        const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
 
         if (email === adminEmail && password === adminPassword) {
             const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "1d" });
