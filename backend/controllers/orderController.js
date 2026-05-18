@@ -1,13 +1,14 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import Stripe from "stripe";
+import mongoose from "mongoose";
 import "dotenv/config";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Placing user order from frontend
 const placeOrder = async (req, res) => {
-  const frontend_url = "http://localhost:5174";
+  const frontend_url = process.env.FRONTEND_URL || "http://localhost:5174";
 
   try {
     // Validate userId
@@ -97,7 +98,7 @@ const verifyOrder = async (req, res) => {
 ///Users order for frontend
 const userOrders = async (req, res) => {
   try {
-    const orders = await orderModel.find({ userId: req.body.userid });
+    const orders = await orderModel.find({ userId: req.body.userId });
     res.json({ success: true, data: orders });
   } catch (error) {
     console.log(error);
@@ -183,7 +184,7 @@ const getStats = async (req, res) => {
         ]);
 
         // Unique Customers
-        const uniqueCustomers = await orderModel.distinct("userid");
+        const uniqueCustomers = await orderModel.distinct("userId");
 
         // Total Food Items
         const totalFoodItems = await mongoose.model('food').countDocuments({});

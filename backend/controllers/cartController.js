@@ -3,13 +3,13 @@ import userModel from "../models/userModel.js";
 //add Items to user carts
 const addToCart = async (req, res) => {
   try {
-    const { userid, itemId } = req.body;
+    const { userId, itemId } = req.body;
     
-    if (!userid || !itemId) {
-      return res.status(400).json({ success: false, message: "Missing userid or itemId" });
+    if (!userId || !itemId) {
+      return res.status(400).json({ success: false, message: "Missing userId or itemId" });
     }
 
-    let userData = await userModel.findById(userid);
+    let userData = await userModel.findById(userId);
     if (!userData) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
@@ -23,7 +23,7 @@ const addToCart = async (req, res) => {
 
     cartData[itemId] = (cartData[itemId] || 0) + 1;
     
-    await userModel.findByIdAndUpdate(userid, { cartData });
+    await userModel.findByIdAndUpdate(userId, { cartData });
     res.status(200).json({ success: true, message: "Item added to cart successfully" });
   } catch (error) {
     console.log(error);
@@ -34,12 +34,12 @@ const addToCart = async (req, res) => {
 //remove items from user carts
 const removeFromCart = async (req, res) => {
   try {
-    const { userid, itemId } = req.body;
+    const { userId, itemId } = req.body;
     
-    if (!userid || !itemId) {
-      return res.status(400).json({ success: false, message: "Missing userid or itemId" });
+    if (!userId || !itemId) {
+      return res.status(400).json({ success: false, message: "Missing userId or itemId" });
     }
-    let userData = await userModel.findById(userid);
+    let userData = await userModel.findById(userId);
     if (!userData) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
@@ -49,7 +49,7 @@ const removeFromCart = async (req, res) => {
       cartData[itemId] -= 1;
     }
     
-    await userModel.findByIdAndUpdate(userid, { cartData });
+    await userModel.findByIdAndUpdate(userId, { cartData });
     res.status(200).json({ success: true, message: "Item removed from cart successfully" });
   } catch (error) {
     console.log(error);
@@ -60,13 +60,13 @@ const removeFromCart = async (req, res) => {
 //get user carts data
 const getCart = async (req, res) => {
   try {
-    const { userid } = req.body;
+    const { userId } = req.body;
     
-    if (!userid) {
-      return res.status(400).json({ success: false, message: "Missing userid" });
+    if (!userId) {
+      return res.status(400).json({ success: false, message: "Missing userId" });
     }
 
-    let userData = await userModel.findById(userid);
+    let userData = await userModel.findById(userId);
     if (!userData) {
       return res.status(404).json({ success: false, message: "User not found" });
     }

@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken"
         const token_decoded = jwt.verify(token,process.env.JWT_SECRET);
         req.user = token_decoded;
         if (!req.body) req.body = {};
-        req.body.userid = token_decoded.id;
+        req.body.userId = token_decoded.id;
         next();
     } catch (error) {
         if (error.name === "TokenExpiredError") {
