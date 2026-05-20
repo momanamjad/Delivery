@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import Skeleton from '../../components/skeleton/Skeleton';
 
-const Dashboard = ({ url }) => {
+const Dashboard = ({ url, token }) => {
     const navigate = useNavigate();
     const [stats, setStats] = useState({
         totalOrders: 0,
@@ -28,7 +28,7 @@ const Dashboard = ({ url }) => {
 
     const fetchStats = async () => {
         try {
-            const response = await axios.get(`${url}/api/order/stats`);
+            const response = await axios.get(`${url}/api/order/stats`, { headers: { token } });
             if (response.data.success) {
                 setStats(response.data.stats);
             }

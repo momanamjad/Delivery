@@ -6,7 +6,7 @@ import { assets } from "../../assets/assets";
 import { Search, Filter, ChevronLeft, ChevronRight, Package, User, MapPin, Phone, CreditCard, X } from "lucide-react";
 import Skeleton from "../../components/skeleton/Skeleton";
 
-const Orders = ({ url }) => {
+const Orders = ({ url, token }) => {
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -21,7 +21,7 @@ const Orders = ({ url }) => {
     try {
       // In a real app, filtering by status would happen on the backend.
       // For now, we'll fetch and filter on frontend for simplicity if the backend doesn't support it.
-      const response = await axios.get(`${url}/api/order/list?page=${currentPage}&limit=${limit}`);
+      const response = await axios.get(`${url}/api/order/list?page=${currentPage}&limit=${limit}`, { headers: { token } });
       if (response.data.success) {
         setOrders(response.data.data);
         setTotalPages(response.data.pagination.totalPages);
@@ -40,7 +40,7 @@ const Orders = ({ url }) => {
       const response = await axios.post(url + "/api/order/status", {
         orderId,
         status: event.target.value
-      });
+      }, { headers: { token } });
       if (response.data.success) {
         toast.success("Status updated");
         await fetchAllOrders();

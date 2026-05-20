@@ -38,10 +38,10 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard url={url} />} />
-          <Route path="/add" element={<Add url={url} />} />
-          <Route path="/list" element={<List url={url} />} />
-          <Route path="/orders" element={<Orders url={url} />} />
+          <Route path="/dashboard" element={<Dashboard url={url} token={token} />} />
+          <Route path="/add" element={<Add url={url} token={token} />} />
+          <Route path="/list" element={<List url={url} token={token} />} />
+          <Route path="/orders" element={<Orders url={url} token={token} />} />
         </Routes>
       </div>
     </>

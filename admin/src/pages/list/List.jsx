@@ -6,7 +6,7 @@ import { Search, Filter, Trash2, Plus, ChevronLeft, ChevronRight, X } from "luci
 import { useNavigate } from "react-router-dom";
 import Skeleton from "../../components/skeleton/Skeleton";
 
-const List = ({ url }) => {
+const List = ({ url, token }) => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
@@ -37,7 +37,7 @@ const List = ({ url }) => {
   const removeFood = async (id) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       try {
-        const response = await axios.post(`${url}/api/food/remove/`, { id });
+        const response = await axios.post(`${url}/api/food/remove/`, { id }, { headers: { token } });
         if (response.data.success) {
           toast.success("Food deleted successfully");
           fetchList();
