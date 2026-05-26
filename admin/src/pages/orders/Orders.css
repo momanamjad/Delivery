@@ -356,3 +356,55 @@
         align-items: flex-start;
     }
 }
+
+/* ── Export & Refresh buttons ─────────────────────────────────────────────── */
+.btn-export-csv {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    color: #16a34a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-export-csv:hover {
+    background: #16a34a;
+    color: white;
+    border-color: #16a34a;
+}
+
+.btn-refresh {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-refresh:hover {
+    border-color: #ff6347;
+    color: #ff6347;
+}
+
+.countdown-badge {
+    font-size: 0.75rem;
+    background: #f1f5f9;
+    padding: 2px 7px;
+    border-radius: 20px;
+    color: #94a3b8;
+}
+

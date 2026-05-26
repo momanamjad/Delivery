@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Orders.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { assets } from "../../assets/assets";
-import { Search, Filter, ChevronLeft, ChevronRight, Package, User, MapPin, Phone, CreditCard, X } from "lucide-react";
+import { Search, Filter, ChevronLeft, ChevronRight, Package, User, MapPin, Phone, CreditCard, X, Download, RefreshCw } from "lucide-react";
 import Skeleton from "../../components/skeleton/Skeleton";
 
 const Orders = ({ url, token }) => {
@@ -15,6 +15,8 @@ const Orders = ({ url, token }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [countdown, setCountdown] = useState(60);
+  const countdownRef = useRef(null);
 
   const fetchAllOrders = async (currentPage = page) => {
     setLoading(true);
@@ -57,9 +59,53 @@ const Orders = ({ url, token }) => {
     }
   };
 
+  // Auto-refresh every 60 seconds
+  const resetCountdown = () => {
+    setCountdown(60);
+    if (countdownRef.current) clearInterval(countdownRef.current);
+    countdownRef.current = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          fetchAllOrders();
+          return 60;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
   useEffect(() => {
     fetchAllOrders();
+    resetCountdown();
+    return () => { if (countdownRef.current) clearInterval(countdownRef.current); };
   }, []);
+
+  // Export all current page orders to CSV
+  const exportToCSV = () => {
+    if (orders.length === 0) {
+      toast.info("No orders to export");
+      return;
+    }
+    const headers = ["Order ID", "Customer", "Phone", "Address", "Items", "Amount", "Status", "Date", "Paid"];
+    const rows = orders.map((o) => [
+      o._id,
+      `${o.address.firstName} ${o.address.lastName}`,
+      o.address.phone,
+      `${o.address.street}, ${o.address.city}`,
+      o.items.map((i) => `${i.name} x${i.quantity}`).join(" | "),
+      `$${o.amount.toFixed(2)}`,
+      o.status,
+      new Date(o.date).toLocaleDateString(),
+      o.payment ? "Yes" : "No",
+    ]);
+    const csvContent = [headers, ...rows].map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `orders-page-${page}-${new Date().toISOString().slice(0,10)}.csv`;
+    link.click();
+    toast.success("Orders exported to CSV");
+  };
 
   const filteredOrders = orders.filter(order => {
     const matchesSearch = 
@@ -103,6 +149,13 @@ const Orders = ({ url, token }) => {
               </div>
             )}
           </div>
+          <button className="btn-export-csv" onClick={exportToCSV} title="Export current page to CSV">
+            <Download size={16} /> Export CSV
+          </button>
+          <button className="btn-refresh" onClick={() => { fetchAllOrders(); resetCountdown(); }} title="Refresh now">
+            <RefreshCw size={16} />
+            <span className="countdown-badge">{countdown}s</span>
+          </button>
         </div>
       </header>
 

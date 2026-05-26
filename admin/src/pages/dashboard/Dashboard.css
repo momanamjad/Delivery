@@ -325,3 +325,51 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ── Dashboard refresh button ─────────────────────────────────────────────── */
+.btn-refresh-dash {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-refresh-dash:hover {
+    border-color: #ff6347;
+    color: #ff6347;
+}
+
+.countdown-badge-dash {
+    font-size: 0.75rem;
+    background: #f3f4f6;
+    padding: 2px 7px;
+    border-radius: 20px;
+    color: #9ca3af;
+}
+
+.no-data-td {
+    text-align: center;
+    color: #94a3b8;
+    padding: 2rem !important;
+}
+
+.no-data {
+    text-align: center;
+    color: #94a3b8;
+    padding: 2rem;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+

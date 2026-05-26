@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./cart.css";
 import { StoreContext } from "../../context/Storecontext";
 import { useNavigate } from "react-router-dom";
-const cart = () => {
+const Cart = () => {
   const { cartItems, food_list, removeFromCart,getTotalcartamount,url,token } = useContext(StoreContext);
   const navigate=useNavigate();
   const [showNotification, setShowNotification] = useState(false);
@@ -33,10 +33,10 @@ const cart = () => {
           </div>
           <br />
           <hr />
-          {food_list.map((item, index) => {
+          {food_list.map((item) => {
             if (cartItems[item._id] > 0) {
               return (
-                <div>
+                <div key={item._id}>
                   <div className="cart-items-title cart-items-item">
                     {/* <p>{item.name}</p> */}
                     <img src={item.image.startsWith("http") ? item.image : url+"/images/"+item.image} onError={(e)=>{e.target.src="https://placehold.co/400x300/ff6347/white?text=Food+Image"}} alt="" />
@@ -98,4 +98,4 @@ const cart = () => {
   );
 };
 
-export default cart;
+export default Cart;

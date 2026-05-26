@@ -15,7 +15,7 @@ const PlaceOrder = () => {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.id || payload.userId || payload._id || null;
-    } catch (e) {
+    } catch {
       return null;
     }
   }
@@ -79,6 +79,7 @@ const PlaceOrder = () => {
     else if (getTotalcartamount() === 0) {
       navigate('/cart')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
   return (

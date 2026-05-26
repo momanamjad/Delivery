@@ -74,7 +74,7 @@ const placeOrder = async (req, res) => {
     // 6. Send the session URL back to frontend
     res.json({ success: true, session_url: session.url });
   } catch (error) {
-    console.log(error);
+    console.error("[placeOrder]", error.message);
     res.status(500).json({ success: false, message: "Error placing order" });
   }
 };
@@ -91,8 +91,8 @@ const verifyOrder = async (req, res) => {
       res.json({ success: false, message: "Not Paid" });
     }
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "error" });
+    console.error("[verifyOrder]", error.message);
+    res.status(500).json({ success: false, message: "Error verifying order" });
   }
 };
 ///Users order for frontend
@@ -101,8 +101,8 @@ const userOrders = async (req, res) => {
     const orders = await orderModel.find({ userId: req.body.userId });
     res.json({ success: true, data: orders });
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "error" });
+    console.error("[userOrders]", error.message);
+    res.status(500).json({ success: false, message: "Error fetching user orders" });
   }
 };
 //listing orders for admin pannel
@@ -141,7 +141,8 @@ const updateStatus = async (req, res) => {
     });
     res.json({ success: true, message: "status updated" });
   } catch (error) {
-    res.json({ success: false, message: "error" });
+    console.error("[updateStatus]", error.message);
+    res.status(500).json({ success: false, message: "Error updating order status" });
   }
 };
 

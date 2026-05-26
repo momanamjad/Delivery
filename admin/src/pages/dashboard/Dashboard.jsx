@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Dashboard.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import {
     PieChart, Pie, Cell 
 } from 'recharts';
 import { 
-    Plus, ExternalLink,
+    Plus, ExternalLink, RefreshCw,
     DollarSign, Users, ShoppingBag, Utensils
 } from 'lucide-react';
 import Skeleton from '../../components/skeleton/Skeleton';
@@ -25,6 +25,8 @@ const Dashboard = ({ url, token }) => {
         totalFoodItems: 0
     });
     const [loading, setLoading] = useState(true);
+    const [countdown, setCountdown] = useState(60);
+    const countdownRef = useRef(null);
 
     const fetchStats = async () => {
         try {
@@ -39,8 +41,21 @@ const Dashboard = ({ url, token }) => {
         }
     };
 
+    const resetCountdown = () => {
+        setCountdown(60);
+        if (countdownRef.current) clearInterval(countdownRef.current);
+        countdownRef.current = setInterval(() => {
+            setCountdown((prev) => {
+                if (prev <= 1) { fetchStats(); return 60; }
+                return prev - 1;
+            });
+        }, 1000);
+    };
+
     useEffect(() => {
         fetchStats();
+        resetCountdown();
+        return () => { if (countdownRef.current) clearInterval(countdownRef.current); };
     }, []);
 
     const STATUS_COLORS = {
@@ -78,6 +93,10 @@ const Dashboard = ({ url, token }) => {
                     <p>Monitor your business performance and key metrics in real-time</p>
                 </div>
                 <div className="header-actions">
+                    <button className="btn-refresh-dash" onClick={() => { fetchStats(); resetCountdown(); }} title="Refresh stats">
+                        <RefreshCw size={16} />
+                        <span className="countdown-badge-dash">{countdown}s</span>
+                    </button>
                     <button className="btn-primary" onClick={() => navigate('/add')}>
                         <Plus size={16} /> Add New Item
                     </button>

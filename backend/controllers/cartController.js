@@ -26,7 +26,7 @@ const addToCart = async (req, res) => {
     await userModel.findByIdAndUpdate(userId, { cartData });
     res.status(200).json({ success: true, message: "Item added to cart successfully" });
   } catch (error) {
-    console.log(error);
+    console.error("[addToCart]", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
@@ -52,7 +52,7 @@ const removeFromCart = async (req, res) => {
     await userModel.findByIdAndUpdate(userId, { cartData });
     res.status(200).json({ success: true, message: "Item removed from cart successfully" });
   } catch (error) {
-    console.log(error);
+    console.error("[removeFromCart]", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
@@ -74,7 +74,7 @@ const getCart = async (req, res) => {
     let cartData = userData.cartData || {};
     res.status(200).json({ success: true, cartData });
   } catch (error) {
-    console.log(error);
+    console.error("[getCart]", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
