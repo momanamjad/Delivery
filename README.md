@@ -2,7 +2,6 @@
 
 A comprehensive full-stack delivery platform built using the MERN stack. This application is divided into three main components: a customer-facing frontend, a robust backend API server, and a specialized admin dashboard for managing orders and inventory.
 
-
 ##  Key Features
 *   **Secure Authentication**: User login and registration powered by JSON Web Tokens (JWT) and encrypted passwords (Bcrypt).
 *   **API Rate Limiting**: Protection against brute-force attacks on auth routes and global API abuse using `express-rate-limit`.
