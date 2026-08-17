@@ -23,7 +23,9 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // ─── Security Middleware ───────────────────────────────────────────────────────
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 
 const allowedOrigins = [
   "http://localhost:5173",
