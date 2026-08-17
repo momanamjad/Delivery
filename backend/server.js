@@ -26,16 +26,41 @@ const port = process.env.PORT || 4000;
 app.use(helmet());
 
 const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5174",
-  process.env.ADMIN_URL    || "http://localhost:5173",
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:3000",
 ];
+
+// Helper to parse comma-separated lists of URLs
+const addOrigins = (urlList) => {
+  if (urlList) {
+    urlList.split(",").forEach(url => {
+      const trimmed = url.trim();
+      if (trimmed) allowedOrigins.push(trimmed);
+    });
+  }
+};
+
+addOrigins(process.env.FRONTEND_URL);
+addOrigins(process.env.ADMIN_URL);
+addOrigins(process.env.ALLOWED_ORIGINS);
+
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (e.g. mobile apps, Postman, curl)
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin) {
+      return callback(null, true);
+    }
+    
+    // Check if the origin matches directly or ends with .vercel.app
+    const isAllowed = allowedOrigins.includes(origin) || 
+                      origin.endsWith('.vercel.app');
+
+    if (isAllowed) {
       callback(null, true);
     } else {
-      callback(new Error(`CORS policy: origin ${origin} not allowed`));
+      // Using callback(null, false) is standard Express CORS behavior for disallowed origins
+      callback(null, false);
     }
   },
   credentials: true,
